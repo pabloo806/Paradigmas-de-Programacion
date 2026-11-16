@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "1. Servidor JavaDona (Local)",
+            "request": "launch",
+            "mainClass": "javadona.ProgramaPrincipal",
+            "args": "1099"
+        },
+        {
+            "type": "java",
+            "name": "2. Cliente Remoto (Local)",
+            "request": "launch",
+            "mainClass": "javadona.cliente.ClienteRemoto",
+            "args": "localhost 1099"
+        }
+    ]
+}
