@@ -153,6 +153,26 @@ public class Supermercado {
         return controlPausa.estaPausado();
     }
 
+    /**
+     * Pausa (true) o reanuda (false) toda la simulación fijando un estado DESEADO.
+     * Es idempotente: pedir el estado en el que ya está no cambia nada. Lo usa el
+     * acceso remoto, donde un "alternar" podría invertir la intención del usuario
+     * si otro actor cambió la pausa justo antes. Reutiliza la misma reconciliación
+     * del reloj lógico que alternarPausa() y no retiene ningún cerrojo mientras
+     * llama al otro recurso.
+     *
+     * @return true si la simulación queda pausada
+     */
+    public boolean establecerPausa(boolean pausada) {
+        if (pausada) {
+            controlPausa.pausar();
+        } else {
+            controlPausa.reanudar();
+        }
+        sincronizarReloj();
+        return controlPausa.estaPausado();
+    }
+
     private void sincronizarReloj() {
         boolean estado = controlPausa.estaPausado();
         while (true) {
